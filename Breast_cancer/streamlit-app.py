@@ -1,13 +1,17 @@
+import streamlit as st
+import pandas as pd
+
 # 文件顶部定义所需列名
 required_columns = ['T Stage', 'N Stage', 'M Stage', 'Tumor Size', 'Grade']
 
 def main():
     st.title("Breast Cancer Survival Prediction")
     
+    # 文件上传功能
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     
     if uploaded_file is not None:
-        # 读取 CSV 文件
+        # 尝试读取文件
         try:
             df = pd.read_csv(uploaded_file)
             
@@ -23,6 +27,7 @@ def main():
         except Exception as e:
             st.error(f"Error reading the file: {e}")
     else:
+        # 侧边栏提示示例文件格式
         st.sidebar.subheader("Sample File Format")
         st.sidebar.write("Your CSV file should contain the following columns:")
         for col in required_columns:
@@ -30,3 +35,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
